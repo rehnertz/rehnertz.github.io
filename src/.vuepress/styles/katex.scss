@@ -1,0 +1,32 @@
+.katex {
+  // Prevent x-overflow when using tags.
+  .tag .vlist-t2 {
+    margin-right: 0;
+  }
+
+  // Use the context font for texts and normalize the font size.
+  .base .text {
+    font-family: var(--vp-font);
+    font-size: 1rem;
+
+    .proof &,
+    .solution & {
+      font-size: var(--proof-size);
+    }
+
+    .cjk_fallback {
+      // Required to overwrite the default style from KaTeX.
+      font-size: 1rem;
+
+      .proof &,
+      .solution & {
+        font-size: var(--proof-size);
+      }
+    }
+  }
+
+  // Use the context font for CJK texts in tags.
+  .tag .text .cjk_fallback {
+    font-family: var(--vp-font);
+  }
+}

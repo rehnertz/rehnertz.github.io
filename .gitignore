@@ -1,0 +1,13 @@
+node_modules/
+.vscode
+src/.vuepress/.cache/
+src/.vuepress/.temp/
+src/.vuepress/dist/
+src/**/figures/**/*.*
+!src/**/figures/**/*.tex
+!src/**/figures/**/*.png
+!src/**/figures/**/*.jpg
+!src/**/figures/**/*.jpeg
+!src/**/figures/**/*.svg
+!src/**/figures/**/*.webp
+!src/**/figures/**/*.gif

@@ -1,0 +1,120 @@
+@use './mathjax-chtml.scss';
+// @use './mathjax-svg.scss';
+// @use './katex.scss';
+
+$math-envs: definition, lemma, theorem, proposition, corollary, example,
+  examples, remark, remarks, claim;
+$ul-styles: decimal, cjk-decimal, lower-roman, upper-roman, lower-alpha,
+  upper-alpha;
+
+:root {
+  --proof-size: 0.85rem;
+  --math-env-margin: 5ex;
+}
+
+// Remove white background for grayscale images.
+img[src$='#grayscale'] {
+  mix-blend-mode: multiply;
+
+  :root[data-theme='dark'] & {
+    mix-blend-mode: screen;
+    filter: invert(100%);
+  }
+}
+
+// Background colors for image preview.
+.pswp {
+  --pswp-bg: gray;
+
+  :root[data-theme='dark'] & {
+    --pswp-bg: black;
+  }
+}
+
+@each $math-env in $math-envs {
+  .#{$math-env} {
+    // &:has(p + &),
+    // &:has(mjx-container + &) {
+    //   margin-top: var(--math-env-margin);
+    // }
+    p + &,
+    mjx-container + & {
+      margin-top: var(--math-env-margin);
+    }
+
+    &:not(:last-of-type, :has(+ .proof, + .solution, + hr)) {
+      margin-bottom: var(--math-env-margin);
+    }
+
+    .math-env-caption {
+      font-weight: bold;
+    }
+  }
+}
+
+.proof,
+.solution {
+  &:not(:last-of-type, :has(+ hr)) {
+    margin-bottom: var(--math-env-margin);
+  }
+
+  .math-env-caption {
+    font-weight: bold;
+  }
+}
+
+.proof,
+.solution {
+  // font-size: 85%;
+  color: rgb(0, 0, 255);
+
+  :root[data-theme='dark'] & {
+    color: rgb(169, 169, 0);
+  }
+
+  &::after {
+    float: right;
+    position: relative;
+    right: -0.8em;
+    top: -2.4em;
+    content: '□';
+  }
+}
+
+mjx-container[display] svg {
+  max-width: 100%;
+}
+
+@each $ul-style in $ul-styles {
+  ul.#{$ul-style} {
+    list-style-type: $ul-style;
+
+    ul {
+      list-style: disc;
+    }
+
+    ul ul {
+      list-style: circle;
+    }
+  }
+
+  ul.#{$ul-style}-parentheses {
+    counter-reset: ul-style-counter;
+
+    > li {
+      counter-increment: ul-style-counter;
+
+      &::marker {
+        content: '(' counter(ul-style-counter, $ul-style) ') ';
+      }
+    }
+
+    ul {
+      list-style: disc;
+    }
+
+    ul ul {
+      list-style: circle;
+    }
+  }
+}
