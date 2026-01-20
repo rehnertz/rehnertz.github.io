@@ -8,6 +8,7 @@
     "update-package": "pnpm dlx vp-update"
   },
   "devDependencies": {
+    "@mathjax/mathjax-newcm-font": "^4.1.0",
     "@mathjax/mathjax-stix2-font": "^4.1.0",
     "@mathjax/src": "^4.1.0",
     "@mdit/plugin-container": "^0.22.2",

@@ -24,8 +24,6 @@ export async function mathjax(
   md: MarkdownIt,
   options: { svg: boolean } = { svg: false }
 ) {
-  // const mjxBreakRegExp = /<mjx-break(.*?)>(.*?)<\/mjx-break>/g
-
   const { svg } = options
 
   await MathJax.init({
@@ -39,7 +37,7 @@ export async function mathjax(
       ],
     },
     output: {
-      font: 'mathjax-stix2',
+      font: 'mathjax-newcm',
       displayOverflow: 'scroll',
       mtextInheritFont: true,
     },
@@ -47,6 +45,9 @@ export async function mathjax(
       packages: {
         '[+]': ['boldsymbol', 'braket', 'mathtools'],
       },
+    },
+    chtml: {
+      adaptiveCSS: false,
     },
     svg: {
       fontCache: 'none',

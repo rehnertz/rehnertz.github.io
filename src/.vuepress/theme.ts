@@ -29,10 +29,11 @@ export default hopeTheme({
     spoiler: true,
     sub: true,
     sup: true,
-    // math: {
-    //   type: 'katex',
-    //   output: 'html',
-    // },
+    math: {
+      type: 'katex',
+      output: 'html',
+      copy: true,
+    },
   },
   plugins: {
     blog: {

@@ -3,7 +3,6 @@ import { defineUserConfig } from 'vuepress'
 import { viteBundler } from '@vuepress/bundler-vite'
 import theme from './theme'
 import mathEnv from './math-env'
-import { mathjax } from './mathjax'
 
 export default defineUserConfig({
   base: '/',
@@ -41,7 +40,6 @@ export default defineUserConfig({
     }
   },
   async extendsMarkdown(md) {
-    await mathjax(md)
     md.use(mathEnv, { name: 'definition', displayName: '定义' })
     md.use(mathEnv, { name: 'theorem', displayName: '定理' })
     md.use(mathEnv, { name: 'claim', displayName: '断言' })
