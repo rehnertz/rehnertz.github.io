@@ -70,34 +70,39 @@ export async function mathjax(
 
   const adaptor = MathJax.startup.adaptor
 
-  adaptor.parser.protectHTML = (text: string): string => {
-    return text
-      .replace(/&(?!nbsp;)/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-  }
-
   if (svg) {
     await loadSVGDynamicFiles()
   } else {
     await MathJax.startup.document.outputJax.font.loadDynamicFiles()
   }
 
+  adaptor.parser.protectHTML = (text: string): string => {
+    return text
+      .replace(/&(?!nbsp;)(?!#)/g, '&amp;')
+      .replace(/<(?!br \/>)/g, '&lt;')
+      .replace(/(?<!<br \/)>/g, '&gt;')
+  }
+
+  function normalizeTexts(node: any) {
+    if (node.kind === '#text') {
+      node.value = node.value
+        .replaceAll(' ', '&nbsp;')
+        .replaceAll('\n', '<br />')
+    }
+    if (node.children) {
+      for (const child of node.children) {
+        normalizeTexts(child)
+      }
+    }
+  }
+
   md.use(mdTex, {
     render(content: string, displayMode: boolean) {
-      const node = (svg ? MathJax.tex2svg : MathJax.tex2chtml)(content, { display: displayMode })
-
-      const inlineBreaks = adaptor.tags(node, 'mjx-break')
-      for (const brk of inlineBreaks) {
-        brk.children[0].value = '&nbsp;'
-      }
-
+      const node = (svg ? MathJax.tex2svg : MathJax.tex2chtml)(content, {
+        display: displayMode,
+      })
+      normalizeTexts(node)
       const html = adaptor.outerHTML(node)
-      // .replace(
-      //   mjxBreakRegExp,
-      //   (_: string, attr: string, inner: string) =>
-      //     `<mjx-break${attr}>${inner.replace(/ /g, '&nbsp;')}</mjx-break>`
-      // )
       return html
     },
   })
