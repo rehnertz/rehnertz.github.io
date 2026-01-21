@@ -1,4 +1,4 @@
-/*
+/**
  * Automatically generate the sidebar.
  */
 
@@ -7,7 +7,7 @@ import { sidebar } from 'vuepress-theme-hope'
 
 const paths = globSync('src/*', {
   withFileTypes: true,
-  exclude: ['src/posts', 'src/figures'],
+  exclude: ['src/posts', 'src/assets'],
 })
 const collections = paths.filter((p) => p.isDirectory())
 
