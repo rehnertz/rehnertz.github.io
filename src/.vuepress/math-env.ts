@@ -53,7 +53,7 @@ export default function mathEnv(md: MarkdownIt, options: MathEnvOptions) {
         caption += ' ' + counter
       }
       if (desc) {
-        caption += '（' + desc + '）'
+        caption += ' (' + desc + ')'
       }
       caption += '&emsp;'
 

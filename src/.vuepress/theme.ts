@@ -31,7 +31,7 @@ export default hopeTheme({
     sup: true,
     math: {
       type: 'katex',
-      output: 'html',
+      output: 'htmlAndMathml',
       copy: true,
     },
   },
