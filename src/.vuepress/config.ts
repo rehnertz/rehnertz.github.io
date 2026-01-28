@@ -2,7 +2,7 @@ import { normalize } from 'node:path/posix'
 import { defineUserConfig } from 'vuepress'
 import { viteBundler } from '@vuepress/bundler-vite'
 import theme from './theme'
-import mathEnv from './math-env'
+import { mathEnv } from './math-env'
 
 export default defineUserConfig({
   base: '/',
@@ -16,13 +16,6 @@ export default defineUserConfig({
           scss: {
             silenceDeprecations: ['if-function'],
           },
-        },
-      },
-    },
-    vuePluginOptions: {
-      template: {
-        compilerOptions: {
-          isCustomElement: (tag) => tag.startsWith('mjx-'),
         },
       },
     },
@@ -40,34 +33,34 @@ export default defineUserConfig({
     }
   },
   async extendsMarkdown(md) {
-    md.use(mathEnv, { name: 'definition', displayName: '定义' })
-    md.use(mathEnv, { name: 'theorem', displayName: '定理' })
-    md.use(mathEnv, { name: 'claim', displayName: '断言' })
-    md.use(mathEnv, {
+    mathEnv(md, { name: 'definition', displayName: '定义' })
+    mathEnv(md, { name: 'theorem', displayName: '定理' })
+    mathEnv(md, { name: 'claim', displayName: '断言' })
+    mathEnv(md, {
       name: 'lemma',
       displayName: '引理',
       counterWith: 'theorem',
     })
-    md.use(mathEnv, {
+    mathEnv(md, {
       name: 'proposition',
       displayName: '命题',
       counterWith: 'theorem',
     })
-    md.use(mathEnv, {
+    mathEnv(md, {
       name: 'corollary',
       displayName: '推论',
       counterWith: 'theorem',
     })
-    md.use(mathEnv, { name: 'example', displayName: '例' })
-    md.use(mathEnv, { name: 'examples', displayName: '例', marker: ';' })
-    md.use(mathEnv, { name: 'remark', displayName: '注解', useCounter: false })
-    md.use(mathEnv, {
+    mathEnv(md, { name: 'example', displayName: '例' })
+    mathEnv(md, { name: 'examples', displayName: '例', marker: ';' })
+    mathEnv(md, { name: 'remark', displayName: '注解', useCounter: false })
+    mathEnv(md, {
       name: 'remarks',
       displayName: '注解',
       useCounter: false,
       marker: ';',
     })
-    md.use(mathEnv, { name: 'proof', displayName: '证明', useCounter: false })
-    md.use(mathEnv, { name: 'solution', displayName: '解', useCounter: false })
+    mathEnv(md, { name: 'proof', displayName: '证明', useCounter: false })
+    mathEnv(md, { name: 'solution', displayName: '解', useCounter: false })
   },
 })

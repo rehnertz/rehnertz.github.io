@@ -2,6 +2,7 @@
 import MathJax from '@mathjax/src'
 import { STATE } from '@mathjax/src/js/core/MathItem.js'
 import { tex as mdTex } from '@mdit/plugin-tex'
+import { writeFileSync } from 'node:fs'
 import type MarkdownIt from 'markdown-it'
 
 async function loadSVGDynamicFiles() {
@@ -37,7 +38,7 @@ export async function mathjax(
       ],
     },
     output: {
-      font: 'mathjax-newcm',
+      font: 'mathjax-stix2',
       displayOverflow: 'scroll',
       mtextInheritFont: true,
     },
@@ -74,7 +75,8 @@ export async function mathjax(
   if (svg) {
     await loadSVGDynamicFiles()
   } else {
-    await MathJax.startup.document.outputJax.font.loadDynamicFiles()
+    // await MathJax.startup.document.outputJax.font.loadDynamicFiles()
+    await MathJax.startup.output.font.loadDynamicFiles()
   }
 
   adaptor.parser.protectHTML = (text: string): string => {
@@ -97,6 +99,9 @@ export async function mathjax(
     }
   }
 
+  ;(globalThis as any).getMathJaxCSS = () =>
+    adaptor.innerHTML(MathJax.startup.output.styleSheet())
+
   md.use(mdTex, {
     render(content: string, displayMode: boolean) {
       const node = (svg ? MathJax.tex2svg : MathJax.tex2chtml)(content, {
@@ -104,6 +109,7 @@ export async function mathjax(
       })
       normalizeTexts(node)
       const html = adaptor.outerHTML(node)
+
       return html
     },
   })

@@ -8,12 +8,12 @@ export default hopeTheme({
     name: 'Rehnertz',
   },
   logo: '/avatar.jpg',
-  pageInfo: ['Author', 'Category', 'Date', 'Tag'],
+  pageInfo: ['Category', 'Date', 'Tag'],
   navbar,
   sidebar,
   blog: {
     description: '不学无术的码农',
-    articleInfo: ['Author', 'Category', 'Date', 'Tag'],
+    articleInfo: ['Category', 'Date', 'Tag'],
     medias: {
       Zhihu: 'https://www.zhihu.com/people/ray-87-74',
       BiliBili: 'https://space.bilibili.com/5678656',

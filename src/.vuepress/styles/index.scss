@@ -1,16 +1,34 @@
-@use './katex.scss';
+// @use './mathjax-chtml-stix2.css';
 
 $mermaid-preview-bg: red;
 
-$math-envs:
-  definition, lemma, theorem, proposition, corollary, example, examples, remark,
+$math-envs: definition, lemma, theorem, proposition, corollary, example, examples, remark,
   remarks, claim;
-$ul-styles:
-  decimal, cjk-decimal, lower-roman, upper-roman, lower-alpha, upper-alpha;
+$ul-styles: decimal, cjk-decimal, lower-roman, upper-roman, lower-alpha, upper-alpha;
 
 :root {
   --proof-size: 0.85rem;
   --math-env-margin: 5ex;
+}
+
+// Sakiko.
+body::after {
+  content: '';
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  background-image: url('/sakiko.png');
+  background-size: contain;
+  mix-blend-mode: multiply;
+  width: min(50vw, 500px);
+  height: min(50vw, 500px);
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.3;
+
+  :root[data-theme='dark'] & {
+    opacity: 0.5;
+  }
 }
 
 // Remove white background for grayscale images.
@@ -34,12 +52,13 @@ img[src$='#grayscale'] {
 
 @each $math-env in $math-envs {
   .#{$math-env} {
+
     // &:has(p + &),
     // &:has(mjx-container + &) {
     //   margin-top: var(--math-env-margin);
     // }
-    p + &,
-    mjx-container + & {
+    p+&,
+    mjx-container+& {
       margin-top: var(--math-env-margin);
     }
 
@@ -98,7 +117,7 @@ img[src$='#grayscale'] {
   ul.#{$ul-style}-parentheses {
     counter-reset: ul-style-counter;
 
-    > li {
+    >li {
       counter-increment: ul-style-counter;
 
       &::marker {

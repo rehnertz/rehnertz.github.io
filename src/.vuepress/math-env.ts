@@ -23,7 +23,7 @@ export interface MathEnvOptions {
   marker?: string
 }
 
-export default function mathEnv(md: MarkdownIt, options: MathEnvOptions) {
+export function mathEnv(md: MarkdownIt, options: MathEnvOptions) {
   const { name, displayName, useCounter, counterWith, marker } = options
   // `theorem*#ref-id[style] description`
   const envPattern = new RegExp(
