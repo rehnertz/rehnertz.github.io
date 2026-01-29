@@ -3,12 +3,14 @@ import { defineUserConfig } from 'vuepress'
 import { viteBundler } from '@vuepress/bundler-vite'
 import theme from './theme'
 import { mathEnv } from './math-env'
+import { mathjax } from './mathjax'
 
 export default defineUserConfig({
   base: '/',
   lang: 'zh-CN',
   title: 'Rehnertz',
   description: 'Ray 的个人博客，记录学习笔记．',
+  plugins: [mathjax()],
   bundler: viteBundler({
     viteOptions: {
       css: {

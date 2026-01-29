@@ -1,7 +1,3 @@
-// @use './mathjax-chtml-stix2.css';
-
-$mermaid-preview-bg: red;
-
 $math-envs: definition, lemma, theorem, proposition, corollary, example, examples, remark,
   remarks, claim;
 $ul-styles: decimal, cjk-decimal, lower-roman, upper-roman, lower-alpha, upper-alpha;
@@ -20,8 +16,8 @@ body::after {
   background-image: url('/sakiko.png');
   background-size: contain;
   mix-blend-mode: multiply;
-  width: min(50vw, 500px);
-  height: min(50vw, 500px);
+  width: min(50vw, 512px);
+  height: min(50vw, 512px);
   z-index: 1;
   pointer-events: none;
   opacity: 0.3;
@@ -52,11 +48,10 @@ img[src$='#grayscale'] {
 
 @each $math-env in $math-envs {
   .#{$math-env} {
+    .math-env-caption {
+      font-weight: bold;
+    }
 
-    // &:has(p + &),
-    // &:has(mjx-container + &) {
-    //   margin-top: var(--math-env-margin);
-    // }
     p+&,
     mjx-container+& {
       margin-top: var(--math-env-margin);
@@ -65,27 +60,22 @@ img[src$='#grayscale'] {
     &:not(:last-of-type, :has(+ .proof, + .solution, + hr)) {
       margin-bottom: var(--math-env-margin);
     }
-
-    .math-env-caption {
-      font-weight: bold;
-    }
   }
 }
 
 .proof,
 .solution {
-  &:not(:last-of-type, :has(+ hr)) {
-    margin-bottom: var(--math-env-margin);
-  }
-
   .math-env-caption {
     font-weight: bold;
   }
+
+  &:not(:last-of-type, :has(+ hr)) {
+    margin-bottom: var(--math-env-margin);
+  }
 }
 
 .proof,
 .solution {
-  // font-size: 85%;
   color: rgb(0, 0, 255);
 
   :root[data-theme='dark'] & {
