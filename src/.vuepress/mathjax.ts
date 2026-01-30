@@ -132,7 +132,7 @@ function copyMathJax() {
     // Rewrite plain-text version.
     clipboardData.setData(
       'text/plain',
-      latexElement.getAttribute('data-latex')!
+      latexElement.getAttribute('data-latex')!.trim()
     )
     // Prevent normal copy handling.
     ev.preventDefault()

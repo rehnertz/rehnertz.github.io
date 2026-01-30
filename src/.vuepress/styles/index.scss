@@ -16,8 +16,8 @@ body::after {
   background-image: url('/sakiko.png');
   background-size: contain;
   mix-blend-mode: multiply;
-  width: min(50vw, 512px);
-  height: min(50vw, 512px);
+  width: min(50vw, 300px);
+  height: min(50vw, 300px);
   z-index: 1;
   pointer-events: none;
   opacity: 0.3;
