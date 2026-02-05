@@ -18,7 +18,7 @@ body::after {
   mix-blend-mode: multiply;
   width: min(50vw, 300px);
   height: min(50vw, 300px);
-  z-index: 1;
+  z-index: 100;
   pointer-events: none;
   opacity: 0.3;
 
